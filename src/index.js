@@ -1,4 +1,4 @@
-import express, { query } from "express";
+import express from "express";
 import connectDB from "./config/dbConfig.js";
 import { createPost } from "./controllers/postController.js";
 import { multerUploads } from "./config/multerConfig.js";
