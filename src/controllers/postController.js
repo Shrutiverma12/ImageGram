@@ -7,7 +7,7 @@ export async function createPost(req, res) {
   try {
     const dataURI = `data:image/jpeg;base64,${data}`;
     const result = await uploader.upload(dataURI, {
-      asset_folder: "ImageGram",
+      folder: "home/ImageGram",
     });
 
     const post = await createPostService({
@@ -17,7 +17,8 @@ export async function createPost(req, res) {
 
     return res.status(201).json({
       success: true,
-      url: result.secure_url,
+      //url: result.secure_url,
+      message: "Post created successfully",
       data: post,
     });
   } catch (error) {

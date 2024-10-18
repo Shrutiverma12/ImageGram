@@ -1,22 +1,14 @@
 import express from "express";
 import connectDB from "./config/dbConfig.js";
-import { createPost } from "./controllers/postController.js";
-import { multerUploads } from "./config/multerConfig.js";
+import apiRouter from "./routers/apiRouter.js";
 
 const PORT = 3000;
 
 const app = express();
 
-app.use(express.json()); //app.use is a global middleware
+app.use(express.json()); //app.use helps us to register global middleware
 app.use(express.text());
 app.use(express.urlencoded());
-
-// function m1(req, res, next) {
-//   console.log("m1");
-//   next();
-// }
-
-// app.use(m1);
 
 app.get("/ping", (req, res) => {
   //const name = req.params.name;
@@ -34,6 +26,8 @@ app.get("/ping", (req, res) => {
 //   next();
 // }
 
+// app.use(m1);
+
 // function m2(req, res, next) {
 //   console.log("m2");
 //   next();
@@ -45,7 +39,12 @@ app.get("/ping", (req, res) => {
 // }
 
 // app.post("/posts", [m1, m2, m3], createPost);
-app.post("/posts", multerUploads, createPost);
+//app.post("/posts", multerUploads, createPost);
+
+//app.use("/posts", postRouter);
+//app.use("/users", userRouter);
+
+app.use("/api", apiRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
