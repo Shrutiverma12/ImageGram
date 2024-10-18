@@ -1,6 +1,7 @@
 import {
   countAllPosts,
   createPost,
+  deletePostById,
   findAllPosts,
 } from "../repositories/postRepository.js";
 
@@ -33,4 +34,9 @@ export const getAllPostsService = async (offset, limit) => {
     totalPages,
     totalDocuments,
   };
+};
+
+export const deletePostervice = async (id) => {
+  const response = await deletePostById(id);
+  return response;
 };

@@ -1,5 +1,9 @@
 import express from "express";
-import { createPost, getAllPosts } from "../../controllers/postController.js";
+import {
+  createPost,
+  deletePost,
+  getAllPosts,
+} from "../../controllers/postController.js";
 import { multerUploads } from "../../config/multerConfig.js";
 
 const router = express.Router();
@@ -8,5 +12,7 @@ const router = express.Router();
 router.post("/", multerUploads, createPost);
 
 router.get("/", getAllPosts);
+
+router.delete("/:id", deletePost);
 
 export default router;
