@@ -2,6 +2,7 @@ import { uploader } from "../config/cloudinaryConfig.js";
 import {
   createPostService,
   deletePostervice,
+  findPostByIdService,
   getAllPostsService,
   updatePostService,
 } from "../services/postService.js";
@@ -23,9 +24,12 @@ export async function createPost(req, res) {
       folder: "home/ImageGram",
     });
 
+    console.log(result.public_id);
+
     const post = await createPostService({
       caption: req.body.caption,
       image: result.secure_url,
+      cloudinary_id: result.public_id,
     });
 
     return res.status(201).json({
@@ -63,7 +67,13 @@ export async function getAllPosts(req, res) {
 export async function deletePost(req, res) {
   try {
     const postId = req.params.id;
+    const post = await findPostByIdService(postId);
+
+    const result = await uploader.destroy(post.cloudinary_id);
+    console.log(result);
+
     const response = await deletePostervice(postId);
+
     if (!response) {
       return res.status(404).json({
         success: false,
@@ -85,6 +95,12 @@ export async function deletePost(req, res) {
 
 export async function updatePost(req, res) {
   try {
+    const postId = req.params.id;
+    const post = await findPostByIdService(postId);
+
+    const result = await uploader.destroy(post.cloudinary_id);
+    console.log(result);
+
     const updateObject = req.body;
     if (req.file) {
       const data = req.file.buffer.toString("base64");

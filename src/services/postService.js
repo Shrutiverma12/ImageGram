@@ -18,9 +18,10 @@ export const createPostService = async (createPostObject) => {
 
   const caption = createPostObject.caption?.trim();
   const image = createPostObject.image;
+  const cloudinary_id = createPostObject.cloudinary_id;
   //const user = createPostObject.user; add later
 
-  const post = await createPost(caption, image);
+  const post = await createPost(caption, image, cloudinary_id);
   return post;
 };
 
