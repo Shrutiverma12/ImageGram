@@ -11,26 +11,23 @@ export async function createPost(req, res) {
   //call the service layer
   //console.log(req.file);
 
-  if (!req.file || req.file.mimetype !== "image/png") {
+  if (!req.file) {
     return res.status(400).json({
       success: false,
-      message: "Image is required or File type not supported",
+      message: "Image is required ",
     });
   }
   const data = req.file.buffer.toString("base64");
   try {
     const dataURI = `data:image/jpeg;base64,${data}`;
-    const result = await uploader.upload(dataURI, {
-      folder: "home/ImageGram",
-    });
-
-    console.log(result.public_id);
+    const result = await uploader.upload(dataURI);
 
     const post = await createPostService({
       caption: req.body.caption,
       image: result.secure_url,
       cloudinary_id: result.public_id,
     });
+    console.log("Post created successfully");
 
     return res.status(201).json({
       success: true,
@@ -99,7 +96,7 @@ export async function updatePost(req, res) {
     const post = await findPostByIdService(postId);
 
     const result = await uploader.destroy(post.cloudinary_id);
-    console.log(result);
+    console.log("Post updation is", result);
 
     const updateObject = req.body;
     if (req.file) {
