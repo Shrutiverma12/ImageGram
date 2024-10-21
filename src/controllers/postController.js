@@ -8,7 +8,14 @@ import {
 
 export async function createPost(req, res) {
   //call the service layer
-  console.log(req.file);
+  //console.log(req.file);
+
+  if (!req.file || req.file.mimetype !== "image/png") {
+    return res.status(400).json({
+      success: false,
+      message: "Image is required or File type not supported",
+    });
+  }
   const data = req.file.buffer.toString("base64");
   try {
     const dataURI = `data:image/jpeg;base64,${data}`;
