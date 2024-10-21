@@ -3,6 +3,7 @@ import {
   createPost,
   deletePost,
   getAllPosts,
+  updatePost,
 } from "../../controllers/postController.js";
 import { multerUploads } from "../../config/multerConfig.js";
 
@@ -14,5 +15,7 @@ router.post("/", multerUploads, createPost);
 router.get("/", getAllPosts);
 
 router.delete("/:id", deletePost);
+
+router.put("/:id", multerUploads, updatePost);
 
 export default router;

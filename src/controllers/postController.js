@@ -3,10 +3,12 @@ import {
   createPostService,
   deletePostervice,
   getAllPostsService,
+  updatePostService,
 } from "../services/postService.js";
 
 export async function createPost(req, res) {
   //call the service layer
+  console.log(req.file);
   const data = req.file.buffer.toString("base64");
   try {
     const dataURI = `data:image/jpeg;base64,${data}`;
@@ -70,6 +72,29 @@ export async function deletePost(req, res) {
     return res.status(500).json({
       success: false,
       message: "Internal Server Error",
+    });
+  }
+}
+
+export async function updatePost(req, res) {
+  try {
+    const updateObject = req.body;
+    if (req.file) {
+      const data = req.file.buffer.toString("base64");
+      const dataURI = `data:image/jpeg;base64,${data}`;
+      const result = await uploader.upload(dataURI);
+      updateObject.image = result.secure_url;
+    }
+    const response = await updatePostService(req.params.id, updateObject);
+    return res.status(200).json({
+      success: true,
+      message: "Post updated successfully",
+      data: response,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error Not Updated",
     });
   }
 }

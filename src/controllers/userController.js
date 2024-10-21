@@ -4,3 +4,5 @@ export async function getProfile(req, res) {
     message: "Not Impemented",
   });
 }
+
+export async function signup(req, res) {}

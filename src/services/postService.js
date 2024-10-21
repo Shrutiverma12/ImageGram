@@ -3,6 +3,8 @@ import {
   createPost,
   deletePostById,
   findAllPosts,
+  findPostById,
+  updatePostById,
 } from "../repositories/postRepository.js";
 
 export const createPostService = async (createPostObject) => {
@@ -38,5 +40,15 @@ export const getAllPostsService = async (offset, limit) => {
 
 export const deletePostervice = async (id) => {
   const response = await deletePostById(id);
+  return response;
+};
+
+export const updatePostService = async (id, updateObject) => {
+  const response = await updatePostById(id, updateObject);
+  return response;
+};
+
+export const findPostByIdService = async (id) => {
+  const response = await findPostById(id);
   return response;
 };
