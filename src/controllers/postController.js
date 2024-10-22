@@ -92,7 +92,6 @@ export async function deletePost(req, res) {
 
 export async function updatePost(req, res) {
   try {
-    //const postId = req.params.id;
     const post = await findPostByIdService(req.params.id);
 
     const result = await uploader.destroy(post.cloudinary_id);
@@ -104,7 +103,6 @@ export async function updatePost(req, res) {
       const dataURI = `data:image/jpeg;base64,${data}`;
       const result = await uploader.upload(dataURI);
       // console.log(result);
-
       updateObject.image = result.secure_url;
       updateObject.cloudinary_id = result.public_id;
     }

@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      minLength: 5,
+      minLength: 6,
       validate: {
         validator: function (emailValue) {
           return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.pre("save", function modifyPassword(next) {
-  const user = this;
+  const user = this; //object with plain password
   const SALT = bcrypt.genSaltSync(9);
 
   const hashPassword = bcrypt.hashSync(user.password, SALT);

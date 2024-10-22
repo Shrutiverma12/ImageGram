@@ -1,4 +1,4 @@
-import User from "../schema/user";
+import User from "../schema/user.js";
 
 export const findUserByEmail = async (email) => {
   try {
@@ -24,5 +24,6 @@ export const createUser = async (user) => {
     return newUser;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
