@@ -1,7 +1,7 @@
 import { checkIfUserExists } from "../services/userService.js";
 import { verifyJWT } from "../utils/jwt.js";
 
-export const isaithenticated = async (req, res, next) => {
+export const isauthenticated = async (req, res, next) => {
   //if jwt is passed in the header
   const token = req.headers["x-access-token"];
 

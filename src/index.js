@@ -2,7 +2,7 @@ import express from "express";
 import connectDB from "./config/dbConfig.js";
 import apiRouter from "./routers/apiRouter.js";
 import multer from "multer";
-import { isaithenticated } from "./middleware/authModdleware.js";
+import { isauthenticated } from "./middleware/authModdleware.js";
 
 const PORT = 3000;
 
@@ -13,7 +13,7 @@ app.use(express.json()); //app.use helps us to register global middleware
 app.use(express.text());
 app.use(express.urlencoded());
 
-app.get("/ping", isaithenticated, (req, res) => {
+app.get("/ping", isauthenticated, (req, res) => {
   //const name = req.params.name;
   //console.log(req.query);
   console.log(req.body);

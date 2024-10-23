@@ -10,6 +10,8 @@ import {
 export async function createPost(req, res) {
   //call the service layer
   //console.log(req.file);
+  const useDetails = req.user;
+  //console.log(useDetails);
 
   if (!req.file) {
     return res.status(400).json({
@@ -26,6 +28,7 @@ export async function createPost(req, res) {
       caption: req.body.caption,
       image: result.secure_url,
       cloudinary_id: result.public_id,
+      user: useDetails._id,
     });
     console.log("Post created successfully");
 
