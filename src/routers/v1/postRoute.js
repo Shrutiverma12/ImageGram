@@ -10,9 +10,31 @@ import { validate } from "../../validators/zodValidator.js";
 import { zodPostSchema } from "../../validators/zodPostSchema.js";
 import { isAdmin, isauthenticated } from "../../middleware/authModdleware.js";
 
-const router = express.Router();
-
 //After /posts we handle the remaing url
+const router = express.Router();
+/**
+ * @swagger
+ * /posts:
+ *  post:
+ *      summary: Create a new post
+ *      description: Create a new post
+ *      requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 description: Title of the post
+ *                 example: "My First Post"
+ *               content:
+ *                 type: string
+ *                 description: Content of the post
+ *                 example: "This is the content of my post."
+ *
+ */
 router.post(
   "/",
   isauthenticated,
