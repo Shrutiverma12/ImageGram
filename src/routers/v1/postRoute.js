@@ -23,7 +23,7 @@ router.post(
 
 router.get("/", getAllPosts);
 
-router.delete("/:id", deletePost);
+router.delete("/:id", isauthenticated, deletePost);
 
 router.put("/:id", multerUploads, updatePost);
 

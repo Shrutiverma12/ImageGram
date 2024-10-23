@@ -21,8 +21,6 @@ export const createPostService = async (createPostObject) => {
   const cloudinary_id = createPostObject.cloudinary_id;
   const user = createPostObject.user;
 
-  console.log(user);
-
   const post = await createPost(caption, image, cloudinary_id, user);
   return post;
 };
@@ -41,7 +39,15 @@ export const getAllPostsService = async (offset, limit) => {
   };
 };
 
-export const deletePostervice = async (id) => {
+export const deletePostervice = async (id, user) => {
+  const post = await findPostById(id);
+
+  if (post.user != user) {
+    throw {
+      status: 401,
+      message: "Unauthorized",
+    };
+  }
   const response = await deletePostById(id);
   return response;
 };

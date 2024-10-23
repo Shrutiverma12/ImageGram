@@ -66,13 +66,13 @@ export async function getAllPosts(req, res) {
 
 export async function deletePost(req, res) {
   try {
-    const postId = req.params.id;
-    const post = await findPostByIdService(postId);
+    //const postId = req.params.id;
+    const post = await findPostByIdService(req.params.id);
 
-    const result = await uploader.destroy(post.cloudinary_id);
-    console.log(result);
+    // const result = await uploader.destroy(post.cloudinary_id);
+    // console.log(result);
 
-    const response = await deletePostervice(postId);
+    const response = await deletePostervice(req.params.id, req.user._id);
 
     if (!response) {
       return res.status(404).json({
@@ -86,9 +86,15 @@ export async function deletePost(req, res) {
       data: response,
     });
   } catch (error) {
+    if (error.status) {
+      return res.status(error.status).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
     return res.status(500).json({
       success: false,
-      message: "Internal Server Error",
+      message: "Internal Server Error ",
     });
   }
 }
