@@ -59,3 +59,4 @@ export const updatePostById = async (id, updatedObject) => {
     console.log(error);
   }
 };
+
