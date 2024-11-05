@@ -1,11 +1,10 @@
 import express from "express";
 import connectDB from "./config/dbConfig.js";
 import apiRouter from "./routers/apiRouter.js";
-import multer from "multer";
-import { isauthenticated } from "./middleware/authModdleware.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import { options } from "./utils/swaggerOptions.js";
+import ip from "ip";
 
 const PORT = 3000;
 
@@ -53,10 +52,13 @@ app.get("/ping", (req, res) => {
   console.log(req.body);
   console.log(req.user);
 
-  return res.json({ message: "pong " });
+  const ipaddr = ip.address();
+  return res.json({ message: "pong" + ipaddr });
 });
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   connectDB();
 });
+
+//client ---> LB ---> server
