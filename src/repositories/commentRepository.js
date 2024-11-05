@@ -20,3 +20,12 @@ export const createComment = async (
     console.log(error);
   }
 };
+
+export const findCommentById = async (id) => {
+  try {
+    const comment = await Comment.findById(id).populate("replies");
+    return comment;
+  } catch (error) {
+    console.log(error);
+  }
+};

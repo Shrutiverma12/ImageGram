@@ -27,6 +27,12 @@ const commentSchema = new mongoose.Schema({
       ref: "Comment",
     },
   ],
+  likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Like",
+    },
+  ],
 });
 
 const comment = mongoose.model("Comment", commentSchema);
