@@ -5,6 +5,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import { options } from "./utils/swaggerOptions.js";
 import ip from "ip";
+import { rateLimit } from "express-rate-limit";
 
 const PORT = 3000;
 
@@ -40,6 +41,13 @@ app.use(express.urlencoded());
 
 //app.use("/posts", postRouter);
 //app.use("/users", userRouter);
+
+const limiter = rateLimit({
+  windowMs: 0.5 * 60 * 1000,
+  max: 5,
+});
+
+app.use(limiter);
 
 const swaggerDocs = swaggerJSDoc(options);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));

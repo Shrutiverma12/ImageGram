@@ -1,21 +1,23 @@
 import {
-  createCommentService,
-  findCommentByIdService,
-} from "../services/commentService.js";
+  createLikeService,
+  findLikeByIdService,
+} from "../services/likeService.js";
 
-export async function createComment(req, res) {
+export async function createLike(req, res) {
   try {
-    const { content, onModel, commentableId } = req.body;
-    const response = await createCommentService(
-      content,
-      req.user._id,
+    const { onModel, likeableId, likeType } = req.body;
+    const response = await createLikeService(
       onModel,
-      commentableId
+      req.user._id,
+      likeableId,
+      likeType
     );
-
+    if (response.status === 400) {
+      return res.status(400).json({ message: response.message });
+    }
     return res.status(201).json({
       success: true,
-      message: "Comment created successfully",
+      message: "Like created successfully",
       data: response,
     });
   } catch (error) {
@@ -33,14 +35,14 @@ export async function createComment(req, res) {
   }
 }
 
-export async function getCommentById(req, res) {
+export async function getLikeById(req, res) {
   try {
-    const commentId = req.params.id;
-    const response = await findCommentByIdService(commentId);
+    const likeId = req.params.id;
+    const response = await findLikeByIdService(likeId);
 
     return res.status(201).json({
       success: true,
-      message: "Comment found successfully",
+      message: "Like found successfully",
       data: response,
     });
   } catch (error) {

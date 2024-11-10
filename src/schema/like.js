@@ -7,15 +7,21 @@ const likeSchema = new mongoose.Schema(
       required: true,
       enum: ["Post", "Comment"],
     },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
     likeableId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       refPath: "onModel",
     },
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
+    likeType: {
+      type: String,
       required: true,
-      ref: "User",
+      default: "like",
+      enum: ["like", "love", "support"],
     },
   },
   { timestamps: true }
