@@ -6,10 +6,17 @@ import swaggerJSDoc from "swagger-jsdoc";
 import { options } from "./utils/swaggerOptions.js";
 import ip from "ip";
 import { rateLimit } from "express-rate-limit";
+import cors from "cors";
 
 const PORT = 3000;
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.use(express.json()); //app.use helps us to register global middleware
 app.use(express.text());
